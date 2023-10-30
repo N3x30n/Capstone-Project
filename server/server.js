@@ -9,7 +9,7 @@ let app = express()
 app.use(express.json())
 app.use(cors())
 
-const {getZipcode, getSpecs, addRestaurant, spinWheel, removeRestaurant} = require('./controller')
+const {getZipcode, getSpecs, addRestaurant, spinWheel,} = require('./controller')
 const {seed} = require('./sequelizeSeed')
 
 //Database Seed
@@ -23,6 +23,5 @@ app.get('/zipcode/:zipcode', getZipcode)
 app.get('/spec/:specs', getSpecs)
 app.post('/map',addRestaurant)
 app.get('/wheel', spinWheel)
-app.delete('/map/:id', removeRestaurant)
 
 app.listen(SERVER_PORT, () => console.log(`Server running on port ${SERVER_PORT}`))
