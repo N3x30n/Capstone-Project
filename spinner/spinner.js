@@ -11,9 +11,9 @@ function rotateFunction(){
     var deg = Math.floor(Math.random() * (max - min)) + min;
     document.getElementById('box').style.transform = "rotate("+deg+"deg)";
     setTimeout(function() {
-      // element.classlist.add('animate')
       alert('enjoy your meal :p')
       window.location.href='http://127.0.0.1:5500/public/home.html'
+      element.classlist.add('animate')
   },5000)
   }
 
