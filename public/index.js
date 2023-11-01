@@ -14,10 +14,7 @@ let key = 'AIzaSyDeUBMTDzO2ZUpdu_20lxcjtWTVNpoCDV8'
 
 let latLng;
 async function initMap() {
-// The location of Uluru
 const position = { lat: 40.7608, lng: -111.8910 };
-// Request needed libraries.
-//@ts-ignore
 const { Map } = await google.maps.importLibrary("maps");
 const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
@@ -39,7 +36,6 @@ initMap()
 
 async function mapCenter(e) {
   const { Map } = await google.maps.importLibrary("maps");
-  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
   // e.preventDefault()
 
@@ -57,19 +53,28 @@ async function mapCenter(e) {
       getNearbyRestaurants()
     })
 }
-function createMarker(place = google.maps.places.PlaceResult, sup) {
+ async function createMarker(place = google.maps.places.PlaceResult, sup) {
+  const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
   if (!place.geometry || !place.geometry.location) return;
-
-  const marker = new google.maps.Marker({
+  const pinBackground = new PinElement({
+    background: "#6B0F1A",
+    borderColor: "#6B0F1A",
+    glyphColor: "#fff8dc"
+  });
+  
+  const marker = new AdvancedMarkerElement ({
     map,
     position: place.geometry.location,
+    content: pinBackground.element
+
   });
 }
+
 
 function addToSpinner (idk) {
   let jsonObj = []
   jsonObj.push(idk)
-  console.log(jsonObj)
+  // console.log(jsonObj)
   if(addCounter <8){
     addCounter++
     axios.post(`${baseURL}/map`, {jsonObj})
@@ -82,9 +87,9 @@ function addToSpinner (idk) {
 }
 
 function createRestaurantCard (yo, id) {
-  console.log(id)
+  // console.log(id)
   const restaurantCard = document.createElement('div')
-  let photo = yo.photos[0].getUrl({maxHeight:300, maxWidth:200})
+  let photo = yo.photos[0].getUrl({maxHeight:300, minWidth:250})
   restaurantCard.classList.add('restaurant-card')
   restaurantCard.innerHTML = `
   <img alt="Restaurant Photo" src=${photo} class="restaurantPhoto"/>
